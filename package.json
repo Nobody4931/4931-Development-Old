@@ -1,0 +1,26 @@
+{
+  "name": "4931-development",
+  "version": "1.0.0",
+  "description": "welcome",
+  "main": "main.js",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "express": "^4.17.1",
+    "fs": "^0.0.1-security",
+    "multer": "^1.4.2"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Nobody4931/4931-Development.git"
+  },
+  "author": "Nobody4931",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Nobody4931/4931-Development/issues"
+  },
+  "homepage": "https://github.com/Nobody4931/4931-Development#readme"
+}
