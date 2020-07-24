@@ -1,0 +1,149 @@
+/* wow good job you're looking at the source code want a medal for your efforts */
+body {
+	background: rgb(44, 62, 80);
+	color: rgb(87, 101, 116);
+
+	font-family: "Arial Black", Gadget, sans-serif;
+	font-weight: 100;
+
+	border: 0;
+	padding: 0;
+	margin: 0;
+	line-height: 100%;
+}
+
+.parent {
+    overflow: hidden;
+}
+
+.child {
+    height: 100%;
+    margin-right: -50px;
+    padding-right: 50px;
+    overflow-y: scroll;
+}
+
+.full-height {
+    height: 100vh;
+}
+
+.flex-center {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.relative-pos {
+	position: relative;
+}
+
+.margin-thing {
+	margin-bottom: 30px;
+}
+
+.title {
+	text-align: center;
+	font-size: 300%;
+}
+
+.pulsate {
+	animation: pulsate;
+	animation-duration: 1.75s;
+	animation-iteration-count: infinite;
+	animation-timing-function: linear;
+}
+
+@keyframes pulsate {
+	0% {
+		transform: scale(1);
+		opacity: 0.6;
+	}
+	25% {
+		transform: scale(1.1) rotate(-3deg);
+		opacity: 1;
+	}
+	50% {
+		transform: scale(1);
+		opacity: 0.6;
+	}
+	75% {
+		transform: scale(1.1) rotate(3deg);
+		opacity: 1;
+	}
+	100% {
+		transform: scale(1);
+		opacity: 0.6;
+	}
+}
+
+.arrow {
+	opacity: 0;
+	position: absolute;
+	left: 50%;
+	top: 85%;
+	-webkit-transform-origin: 50% 50%;
+	transform-origin: 50% 50%;
+	-webkit-transform: translate3d(-50%, -50%, 0);
+	transform: translate3d(-50%, -50%, 0);
+}
+
+.arrow:before, .arrow:after {
+	background: rgb(255, 255, 255);
+	content: "";
+	display: block;
+	height: 3px;
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 35px;
+}
+
+.arrow:before {
+	-webkit-transform: rotate(45deg) translateX(-23%);
+	transform: rotate(45deg) translateX(-23%);
+	-webkit-transform-origin: top left;
+	transform-origin: top left;
+}
+
+.arrow:after {
+	-webkit-transform: rotate(-45deg) translateX(23%);
+	transform: rotate(-45deg) translateX(23%);
+	-webkit-transform-origin: top right;
+	transform-origin: top right;
+}
+
+.arrow-one {
+	animation: arrow-movement;
+	animation-duration: 3s;
+	animation-timing-function: ease-in-out;
+	animation-iteration-count: infinite;
+}
+
+.arrow-two {
+	animation: arrow-movement;
+	animation-duration: 3s;
+	animation-delay: 1s;
+	animation-timing-function: ease-in-out;
+	animation-iteration-count: infinite;
+}
+
+.arrow-three {
+	animation: arrow-movement;
+	animation-duration: 3s;
+	animation-delay: 2s;
+	animation-timing-function: ease-in-out;
+	animation-iteration-count: infinite;
+}
+
+@keyframes arrow-movement {
+    0% {
+        opacity: 0;
+        top: 77.5%;
+    }
+    80% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
+}
