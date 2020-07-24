@@ -14,11 +14,11 @@ const DBManager = require("./resources/modules/database.js");
 const Options = require("./resources/modules/options.json");
 
 /* BACKEND */
-// None so far!
+App.get("/video.uwu", async (Request, Response) => Response.sendFile(`${__dirname}/resources/files/music.mp4`));
+App.get("/icon.uwu", async (Request, Response) => Response.sendFile(`${__dirname}/resources/files/favicon.png`));
 
 /* FRONTEND */
 App.use(Express.static(`${__dirname}/public/frontend`, { index: "index.html" }));
-App.get("/icon.uwu", async (Request, Response) => Response.sendFile(`${__dirname}/resources/files/favicon.png`));
 App.get("*", async (Request, Response) => Response.redirect(`/404`));
 
 /* WEBSERVER STARTUP */
