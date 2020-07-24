@@ -18,6 +18,7 @@ const Options = require("./resources/modules/options.json");
 
 /* FRONTEND */
 App.use(Express.static(`${__dirname}/public/frontend`, { index: "index.html" }));
+App.get("/icon.uwu", async (Request, Response) => Response.sendFile(`${__dirname}/resources/files/favicon.png`));
 App.get("*", async (Request, Response) => Response.redirect(`/404`));
 
 /* WEBSERVER STARTUP */
