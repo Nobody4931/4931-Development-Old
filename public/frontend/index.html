@@ -38,7 +38,7 @@
 			var toggle_mute = function() {
 				var music_video = document.getElementById("mv");
 				if (music_video != null) {
-					(music_video.getAttribute("muted") != null) ?
+					(music_video.muted == true) ?
 						music_video.muted = false :
 						music_video.muted = true;
 				}
