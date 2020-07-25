@@ -23,6 +23,7 @@ App.get("*/script.js", async (Request, Response) => Response.redirect(`/404`));
 
 /* FRONTEND */
 App.use(Express.static(`${__dirname}/public/frontend`, { index: "index.html" }));
+App.use("/files", Express.static(`${__dirname}/public/files`));
 App.get("*", async (Request, Response) => Response.redirect(`/404`));
 
 /* WEBSERVER STARTUP */
