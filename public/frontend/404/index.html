@@ -18,7 +18,7 @@
 	<body>
 		<header class="header container">
 			<div class="fullscreen">
-				<video class="fullscreen-video" src="/video.uwu?v=1" autoplay="true" loop="true" muted="true" type="video/mp4"></video>
+				<video id="mv" class="fullscreen-video" src="/video.uwu?v=1" autoplay="true" loop="true" muted="true" type="video/mp4"></video>
 			</div>
 			<div class="header-overlay"></div>
 			<div class="header-stuff">
@@ -27,10 +27,23 @@
 				<p>(and blinking too while we're at it)</p>
 				<p>now go <a href="/">back</a> please</p>
 			</div>
+			<div class="am-i-deaf">
+				click <a href="javascript:void(0)" onclick="toggle_mute()">here</a> to unmute
+			</div>
 			<div class="dont-sue-me-please">
 				music video: <a href="https://www.youtube.com/watch?v=Atvsg_zogxo" target="_blank">zutomayo - study me</a>
 				<span>(don't sue me please)</span>
 			</div>
 		</header>
+		<script>
+			var toggle_mute = function() {
+				var music_video = document.getElementById("mv");
+				if (music_video != null) {
+					(music_video.getAttribute("muted") != null) ?
+						music_video.muted = false :
+						music_video.muted = true;
+				}
+			}
+		</script>
 	</body>
 </html>
