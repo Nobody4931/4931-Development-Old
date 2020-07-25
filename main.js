@@ -17,8 +17,12 @@ App.disable("x-powered-by");
 App.use(BodyParser.urlencoded({ extended: false }));
 App.use(BodyParser.json());
 
+DBManager.GetGlobalDatabase("upl_whitelist", [{ ip_address: "::ffff:192.168.1.1", permission_level: 4931 }]);
+DBManager.GetGlobalDatabase("file_cache", {});
+
 /* BACKEND */
-App.use("/", require("./public/backend/getResource.js"));
+App.use("/", require("./public/backend/get_resource.js"));
+App.use("/files/upload", require("./public/backend/upload_manager.js"));
 App.get("*/script.js", async (Request, Response) => Response.redirect(`/404`));
 
 /* FRONTEND */
