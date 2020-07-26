@@ -100,6 +100,7 @@ Router.put("/", FileHndl, async (Request, Response) => {
 	
 	try {
 		FileCache[Identifier] = {};
+		FileCache[Identifier].original_name = UplFile.originalname;
 		FileCache[Identifier].uploader = Client.username;
 		FileCache[Identifier].uploader_ip = Client.ip_address;
 		FileCache[Identifier].protection_level = Client.permission_level;
