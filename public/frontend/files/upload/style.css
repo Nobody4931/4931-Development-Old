@@ -67,6 +67,7 @@ body {
 	color: #ffffff;
 	display: inline-block;
 	cursor: pointer;
+	width: 60%;
 	padding-top: 1rem;
 	padding-right: 2rem;
 	padding-bottom: 1rem;
@@ -75,9 +76,14 @@ body {
 	margin-right: auto;
 	text-decoration: none;
 	text-align: center;
+	/* maybe some other day ¯\_(ツ)_/¯
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	*/
 }
 
-.content {
+#content {
 	position: absolute;
 	top: 0%;
 	left: 20vw;
@@ -97,17 +103,17 @@ body {
 	flex-wrap: wrap;
 }
 
-.content span {
+#content span {
 	margin: 5%;
 	width: 20%;
 	text-align: center;
 }
 
-.content span img {
+#content span img {
 	width: 100%;
 }
 
-.content span a {
+#content span a {
 	text-decoration: none;
 	color: #54a0ff;
 }

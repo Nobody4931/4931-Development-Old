@@ -105,3 +105,9 @@ dist
 
 # my stuff
 *.mp4
+*.mov
+*.avi
+*.png
+*.jpg
+*.jpeg
+*.gif
