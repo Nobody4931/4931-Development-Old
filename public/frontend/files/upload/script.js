@@ -1,11 +1,15 @@
 $(document).ready(() => {
 	//#region thumbnail_stuff
 	var CanGenerate = true;
+	var CanDelete = true;
+	var CanUpload = true;
+
 	var Generated = 0;
 	var Content = document.getElementById("content");
 
 	var Generate = function() {
 		if (CanGenerate != true) return;
+		CanGenerate = false;
 
 		fetch("./", {
 			method: "POST",
@@ -23,16 +27,58 @@ $(document).ready(() => {
 			if (Data.data == null) return Generate();
 
 			Data.data.forEach((File) => {
-				Content.innerHTML += `
-				<span>
-					<a href="${File.link}" target="_blank">
-						<img src="${File.thumbnail}" alt="${File.identifier}">
-					</a>
-					${File.deletable == true ? `<a class="enabled" id="del-${File.identifier}">delete image</a>` : `<a class="disabled">unable to delete image</a>`}
-				</span>`;
+				// Create entry
+				var NewEntry = document.createElement("span");
+				var ImageSRC = document.createElement("img");
+				var ImageURL = document.createElement("a");
+				var DelEntry = document.createElement("a");
 
-				// TODO: file deleting bullshit
-				// also fix this garbage code
+				ImageSRC.setAttribute("alt", File.identifier);
+				ImageSRC.setAttribute("src", File.thumbnail);
+
+				ImageURL.setAttribute("target", "_blank");
+				ImageURL.setAttribute("href", File.link);
+
+				if (File.deletable == true) {
+					DelEntry.classList.add("enabled");
+					DelEntry.id = `del-${File.identifier}`;
+					DelEntry.innerHTML = "delete image";
+				} else {
+					DelEntry.classList.add("disabled");
+					DelEntry.innerHTML = "unable to delete image";
+				}
+
+				ImageURL.append(ImageSRC);
+				NewEntry.append(ImageURL);
+				NewEntry.append(DelEntry);
+				Content.append(NewEntry);
+
+				// Deletion handler
+				if (File.deletable == true) {
+					$(DelEntry).click((Event) => {
+						if (CanDelete != true) return;
+						CanDelete = false;
+
+						fetch("./", {
+							method: "DELETE",
+							headers: {
+								"Content-Type": "application/json"
+							},
+							body: JSON.stringify({
+								identifier: File.identifier
+							})
+						}).then(async (Response2) => {
+							var Data2 = await Response2.json();
+							if (Data2.success != true) return CanDelete = true;
+
+							CanGenerate = false;
+							CanDelete = false;
+							CanUpload = false;
+
+							setTimeout(() => window.location.href = window.location.href, 1500);
+						}).catch(() => CanDelete = true);
+					});
+				}
 			});
 
 			CanGenerate = true;
@@ -52,8 +98,6 @@ $(document).ready(() => {
 
 	var FileLabel = document.getElementById("label-file");
 	var OrigValue = FileLabel.innerHTML;
-
-	var CanUpload = true;
 
 	FileInput.addEventListener("change", (Event) => {
 		/* maybe some other day ¯\_(ツ)_/¯
@@ -79,6 +123,9 @@ $(document).ready(() => {
 		}).then(async (Response) => {
 			var Data = await Response.json();
 			if (Data.success == true) {
+				CanGenerate = false;
+				CanDelete = false;
+
 				UplStatus.style.color = "#00ff00";
 				UplStatus.innerHTML = "status: success";
 				setTimeout(() => window.location.href = window.location.href, 1500);

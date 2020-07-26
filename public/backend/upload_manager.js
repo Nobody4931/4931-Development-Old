@@ -129,4 +129,40 @@ Router.put("/", FileHndl, async (Request, Response) => {
 	Response.status(200).send({ success: true });
 });
 
+Router.delete("/", async (Request, Response) => {
+	var IPAddress = Request.connection.remoteAddress;
+	var Client = UplWhitelist.find((C) => (C.ip_address == IPAddress));
+	if (Client == null) return Response.status(400).send({ success: false, error: "access_denied" });
+
+	var Arguments = Request.body;
+	var Identifier = Arguments["identifier"];
+
+	if (Identifier == null) return Response.status(400).send({ success: false, error: "invalid_parameters" });
+	if (typeof Identifier != "string") return Response.status(400).send({ success: false, error: "invalid_parameters" });
+
+	var Metadata = FileCache[Identifier];
+	if (Metadata == null) 
+		return Response.status(400).send({ success: false, error: "invalid_identifier" });
+	if (Metadata.protection_level > Client.permission_level)
+		return Response.status(400).send({ success: false, error: "lacking_permission" });
+
+	// File unlink process
+	var Finished = false;
+	while (Finished != true) {
+		try {
+			if (Fs.existsSync(`public/data${Metadata.link}`))
+				Fs.unlinkSync(`public/data${Metadata.link}`);
+			if (Fs.existsSync(`public/data${Metadata.thumbnail}`))
+				Fs.unlinkSync(`public/data${Metadata.thumbnail}`);
+
+			delete FileCache[Identifier];
+			DBManager.SaveGlobalDatabase("file_cache");
+
+			Finished = true;
+		} catch { }
+	}
+
+	Response.status(200).send({ success: true });
+});
+
 module.exports = Router;
