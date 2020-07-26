@@ -24,6 +24,7 @@ DBManager.GetGlobalDatabase("file_cache", {});
 App.use("/", require("./public/backend/get_resource.js"));
 App.use("/files/upload", require("./public/backend/upload_manager.js"));
 App.get("*/script.js", async (Request, Response) => Response.redirect(`/404`));
+App.get("/discord.uwu", async (Request, Response) => Response.sendFile(`${__dirname}/resources/files/dis_cord.html`));
 
 /* FRONTEND */
 App.use(Express.static(`${__dirname}/public/frontend`, { index: "index.html" }));

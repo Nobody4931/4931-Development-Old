@@ -14,7 +14,9 @@ const Options = require("../../resources/modules/options.json");
 
 /* REQUEST MANAGER */
 Router.get("/icon.uwu", async (Request, Response) => 
-	Response.sendFile(`${process.cwd()}/resources/files/favicon.png`));
+	(Request.query != null && Request.query["type"] == "discord") ?
+		Response.sendFile(`${process.cwd()}/resources/files/dis_cord.png`) :
+		Response.sendFile(`${process.cwd()}/resources/files/favicon.png`));
 
 Router.get("/video.uwu", async (Request, Response) => {
 	if (Request.headers["referer"] != null) {
