@@ -104,15 +104,24 @@ Router.put("/", FileHndl, async (Request, Response) => {
 		FileCache[Identifier].uploader_ip = Client.ip_address;
 		FileCache[Identifier].protection_level = Client.permission_level;
 		FileCache[Identifier].link = `/files/${Identifier}${FileExt}`;
-		FileCache[Identifier].thumbnail = (ExtSupport.indexOf(FileExt) > 3) ? `/files/${Identifier}.jpg` : `/files/${Identifier}${FileExt}`;
+		FileCache[Identifier].thumbnail = (ExtSupport.indexOf(FileExt) > 3) ? `/files/${Identifier}.png` : `/files/${Identifier}${FileExt}`;
 
 		Fs.renameSync(UplFile.path, `public/data/files/${Identifier}${FileExt}`);
 		if (ExtSupport.indexOf(FileExt) > 3) {
-			;
+			new FFmpeg(`public/data/files/${Identifier}${FileExt}`)
+				.setFfmpegPath("/FFmpeg/ffmpeg.exe")
+				.takeScreenshots({
+					count: 1,
+					timemarks: ["25%"],
+					folder: `public/data/files/`,
+					filename: `${Identifier}.png`
+				});
 		}
 
 		DBManager.SaveGlobalDatabase("file_cache");
 	} catch {
+		while (Fs.existsSync(`public/data/files/${Identifier}.png`))
+			try { Fs.unlinkSync(`public/data/files/${Identifier}.png`) } catch { };
 		return Reject(UplFile, Response, { success: false, error: "internal_error" });
 	}
 
