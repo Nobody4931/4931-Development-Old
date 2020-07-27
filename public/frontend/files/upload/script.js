@@ -41,7 +41,6 @@ $(document).ready(() => {
 
 				if (File.deletable == true) {
 					DelEntry.classList.add("enabled");
-					DelEntry.id = `del-${File.identifier}`;
 					DelEntry.innerHTML = "delete image";
 				} else {
 					DelEntry.classList.add("disabled");
@@ -82,11 +81,12 @@ $(document).ready(() => {
 			});
 
 			CanGenerate = true;
+			Generated += Data.data.length;
 		}).catch(() => CanGenerate = true);
 	}
 
-	window.onscroll = (Event) =>
-		(window.innerHeight + window.scrollY >= document.body.offsetHeight) ?
+	Content.onscroll = (Event) =>
+		($(Content).innerHeight() + $(Content).scrollTop() + 0.5 >= Content.scrollHeight) ?
 			Generate() : null;
 
 	Generate();

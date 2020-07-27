@@ -8,6 +8,7 @@ const FFmpeg = require("fluent-ffmpeg");
 const Multer = require("multer");
 const Path = require("path");
 const Fs = require("fs");
+const OS = require("os");
 
 /* INTERNAL MODULES */
 const Generator = require("../../resources/modules/generator.js");
@@ -62,7 +63,7 @@ Router.post("/", async (Request, Response) => {
 
 			var Payload = [];
 			var Files = Object.entries(FileCache);
-			for (var i = Files.length - 1 - QryStart; i >= 0 && i >= Files.length - 1 - QryLimit; i--) {
+			for (var i = Files.length - 1 - QryStart; i >= 0 && i > Files.length - 1 - QryLimit; i--) {
 				var [Identifier, Metadata] = Files[i];
 				Payload.push({
 					["identifier"]: Identifier,
@@ -110,7 +111,7 @@ Router.put("/", FileHndl, async (Request, Response) => {
 		Fs.renameSync(UplFile.path, `public/data/files/${Identifier}${FileExt}`);
 		if (ExtSupport.indexOf(FileExt) > 3) {
 			new FFmpeg(`public/data/files/${Identifier}${FileExt}`)
-				.setFfmpegPath("/FFmpeg/ffmpeg.exe")
+				.setFfmpegPath((OS.platform() == "win32") ? `/FFmpeg/ffmpeg.exe` : `${process.cwd()/ffmpeg/ffmpeg}`) // fucking macbook air..
 				.takeScreenshots({
 					count: 1,
 					timemarks: ["25%"],
