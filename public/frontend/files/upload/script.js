@@ -74,7 +74,7 @@ $(document).ready(() => {
 							CanDelete = false;
 							CanUpload = false;
 
-							setTimeout(() => window.location.href = window.location.href, 1500);
+							window.location.href = window.location.href;
 						}).catch(() => CanDelete = true);
 					});
 				}
@@ -128,7 +128,8 @@ $(document).ready(() => {
 
 				UplStatus.style.color = "#00ff00";
 				UplStatus.innerHTML = "status: success";
-				setTimeout(() => window.location.href = window.location.href, 1500);
+
+				setTimeout(() => window.location.href = window.location.href, 500);
 			} else {
 				UplStatus.style.color = "#ff0000";
 				switch (Data.error) {

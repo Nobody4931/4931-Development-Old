@@ -1,5 +1,10 @@
 {
 	"Name": "4931 Development™",
 	"Version": "v1.0.0a",
-	"Port": 1337
+
+	"Port": 1337,
+	"OAuth": {
+		"Identifier": "737751333461033024",
+		"Secret": "iQtMY8ZmQa6WTjqXOVfT816PPVJvdrXv"
+	}
 }

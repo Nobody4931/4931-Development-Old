@@ -20,6 +20,12 @@ Router.get("/icon.uwu", async (Request, Response) =>
 
 Router.get("/video.uwu", async (Request, Response) => {
 	if (Request.headers["referer"] != null) {
+		if (Request.headers["referer"].match(/4931\.myftp\.org.*\/files\/apply\/sent/) != null)
+			return Response.sendFile(`${process.cwd()}/resources/files/music-6.mp4`);
+		if (Request.headers["referer"].match(/4931\.myftp\.org.*\/files\/apply\/denied/) != null)
+			return Response.sendFile(`${process.cwd()}/resources/files/music-5.mp4`);
+		if (Request.headers["referer"].match(/4931\.myftp\.org.*\/files\/apply/) != null)
+			return Response.sendFile(`${process.cwd()}/resources/files/music-4.mp4`);
 		if (Request.headers["referer"].match(/4931\.myftp\.org.*\/files\/denied/) != null)
 			return Response.sendFile(`${process.cwd()}/resources/files/music-3.mp4`);
 		if (Request.headers["referer"].match(/4931\.myftp\.org.*\/404/) != null)
