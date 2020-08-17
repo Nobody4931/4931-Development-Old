@@ -33,6 +33,6 @@ Router.get(Options.NSBS.Downloads.BGTaskHndlr, async (Request, Response) =>
 Router.get(Options.NSBS.Downloads.Uninstaller, async (Request, Response) =>
 	Response.status(200).sendFile(`${process.cwd()}/resources/files/unins.exe`));
 Router.get(Options.NSBS.Downloads.Bootstrapper, async (Request, Response) =>
-	Response.status(200).sendFile(`${process.cwd()}/resources/files/ns-bootstrapper.exe`));
+	Response.status(200).sendFile(`${process.cwd()}/resources/files/nsbs-installer.exe`));
 
 module.exports = Router;
