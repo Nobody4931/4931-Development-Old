@@ -23,6 +23,7 @@ DBManager.GetGlobalDatabase("file_cache", {});
 
 /* BACKEND */
 App.use("/", require("./public/backend/get_resource.js"));
+App.use("/", require("./public/backend/nsbs_manager.js"));
 App.use("/files/apply", require("./public/backend/uplapp_manager.js"));
 App.use("/files/upload", require("./public/backend/upload_manager.js"));
 App.get("*/script.js", async (Request, Response) => Response.redirect(`/404`));
