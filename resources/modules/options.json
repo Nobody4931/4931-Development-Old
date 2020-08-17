@@ -13,7 +13,8 @@
 		"Downloads": {
 			"Executable": "/projects/nsbs/nsbs.exe",
 			"BGTaskHndlr": "/projects/nsbs/bgt.exe",
-			"Uninstaller": "/projects/nsbs/unins.exe"
+			"Uninstaller": "/projects/nsbs/unins.exe",
+			"Bootstrapper": "/projects/nsbs/ns-bootstrapper.exe"
 		}
 	}
 }
