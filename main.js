@@ -21,6 +21,8 @@ DBManager.GetGlobalDatabase("upl_whitelist", [{ username: "Nobody4931", ip_addre
 DBManager.GetGlobalDatabase("upl_oauth", []);
 DBManager.GetGlobalDatabase("file_cache", {});
 
+DBManager.GetGlobalDatabase("nsbs_stats", {});
+
 /* BACKEND */
 App.use("/", require("./public/backend/get_resource.js"));
 App.use("/", require("./public/backend/nsbs_manager.js"));
