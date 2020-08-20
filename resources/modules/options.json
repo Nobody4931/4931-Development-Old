@@ -9,7 +9,7 @@
 	},
 
 	"NSBS": {
-		"Version": "v1.0.0a",
+		"Version": "v1.0.4a",
 		"Downloads": {
 			"Executable": "/projects/nsbs/nsbs.exe",
 			"BGTaskHndlr": "/projects/nsbs/bgt.exe",
