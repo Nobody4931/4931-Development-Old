@@ -12,3 +12,6 @@ no one
 
 # if no ones in your development team, why is it called 4931 development?
 you ask alot of questions
+
+# if nobodys in your development team, who develops the products?
+nobody
